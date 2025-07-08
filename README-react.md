@@ -1,44 +1,55 @@
 # React Express App
 
-A minimal React TSX application with Express 5 backend.
+A minimal React TSX application with Express 5 backend that serves both API and SPA from a single server.
 
 ## Features
 
 - React 18 with TypeScript (TSX)
 - React Router for client-side routing
-- Express 5 server
-- REST API endpoint
-- Single Page Application (SPA) routing
-- Serves both API and static files from one server
+- Express 5 server with TypeScript
+- REST API endpoint (`/api/hello`)
+- Single server deployment - serves both API and static files
+- Azure App Service ready
 
 ## Quick Start
 
+### Development
 ```bash
 # Install dependencies
 npm install
 
-# Start the development server (frontend only)
+# Start Vite dev server (with hot reload)
 npm run dev
-
-# Build and start the production server (API + SPA)
-npm start
+# Opens http://localhost:8080 (proxies API calls to port 3001)
 ```
 
-## Development
+### Production (Single Server)
+```bash
+# Install dependencies
+npm install
 
-- Frontend: http://localhost:8080
-- Backend API: http://localhost:3001/api/hello
+# Build the React app
+npm run build
 
-## Project Structure
+# Start the server (serves both API and React app)
+npm start
+# Opens http://localhost:3001 (both app and API)
+```
 
-- `src/App.tsx` - Main React component with routing
-- `src/main.tsx` - React application entry point
-- `server.ts` - Express 5 server with API and static file serving
-- `index.html` - Entry point HTML file
+## API Endpoints
+
+- `GET /api/hello` - Returns a JSON "Hello World" message
 
 ## How it works
 
-1. The Express server serves the React build files as static content
-2. API routes are handled by Express (`/api/*`)
-3. All other routes are handled by React Router (SPA wildcard route)
-4. Both the React app and API are served from the same Express server on port 3001
+1. **Express static middleware** serves React build files from `dist/client/`
+2. **API routes** handle `/api/*` endpoints
+3. **Wildcard route** serves React's `index.html` for all other routes
+4. **React Router** handles client-side routing
+
+## Azure App Service Deployment
+
+1. **Build Command**: `npm run build`
+2. **Startup Command**: `npm start`
+
+The server automatically serves both the React SPA and API endpoints from port 3001.
