@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "A minimal React TSX app with Express 5 backend",
   "main": "dist/server.js",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:server": "tsc server.ts --outDir dist --target es2020 --module esnext --moduleResolution bundler --allowSyntheticDefaultImports",
+    "build:server": "tsc server.ts --outDir dist --target es2020 --module commonjs --moduleResolution node --esModuleInterop --allowSyntheticDefaultImports",
     "build:all": "npm run build && npm run build:server",
     "preview": "vite preview",
     "server": "tsx server.ts",
