@@ -1,0 +1,35 @@
+.app {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin-top: 60px;
+}
+
+nav {
+  margin-bottom: 40px;
+  padding: 20px;
+}
+
+nav a {
+  font-weight: bold;
+  color: #2c3e50;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+nav a:hover {
+  color: #42b983;
+}
+
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  color: #2c3e50;
+}
+
+p {
+  color: #666;
+}
