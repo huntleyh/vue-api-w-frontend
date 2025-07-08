@@ -1,6 +1,9 @@
-import express, { Request, Response } from "express";
-import path from 'path';
-import cors from 'cors';
+const express = require("express");
+const path = require('path');
+const cors = require('cors');
+
+// TypeScript types for better development experience
+import { Request, Response } from "express";
 
 const app = express();
 const PORT = 3001;
@@ -12,7 +15,12 @@ app.use(cors({
 app.use(express.json());
 
 // Serve static files from the built client
-app.use(express.static(path.join(__dirname, 'dist/client')));
+// When running with tsx directly, use 'dist/client'
+// When running compiled version from dist/, use 'client'
+const clientPath = __filename.includes('dist') ? 
+  path.join(__dirname, 'client') : 
+  path.join(__dirname, 'dist/client');
+app.use(express.static(clientPath));
 
 // API Routes
 app.get("/api/hello", (req: Request, res: Response) => {
@@ -24,12 +32,16 @@ app.get("/api/hello", (req: Request, res: Response) => {
 });
 
 // Catch-all handler: send back React's index.html file for any non-API routes
+const indexPath = __filename.includes('dist') ? 
+  path.join(__dirname, 'client/index.html') : 
+  path.join(__dirname, 'dist/client/index.html');
+
 app.get('/', (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, 'dist/client/index.html'));
+  res.sendFile(indexPath);
 });
 
 app.get(/^(?!\/api).*/, (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, 'dist/client/index.html'));
+  res.sendFile(indexPath);
 });
  
 app.listen(PORT, () => {
